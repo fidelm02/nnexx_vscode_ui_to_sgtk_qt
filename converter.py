@@ -18,8 +18,10 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 home_folder = os.path.expanduser("~")
+logs_folder = os.path.join(home_folder, 'logs')
+os.makedirs(logs_folder, exist_ok=True)
 file_handler = logging.FileHandler(
-    os.path.join(home_folder, 'logs', 'VSCODE_UI_to_SGTK_Py_converter.log'))
+    os.path.join(logs_folder, 'VSCODE_UI_to_SGTK_Py_converter.log'))
 logger.addHandler(file_handler)
 
 
