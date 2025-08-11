@@ -1,0 +1,37 @@
+{
+  "name": "nexx-convert-ui",
+  "displayName": "Nnexx Convert .ui to SGTK PyQT",
+  "description": "Adds a context menu to convert .ui files to SGTK PyQT format",
+  "version": "0.0.1",
+  "publisher": "nnexx",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "activationEvents": [
+    "onCommand:nnexx.convertUiToSgtk"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "nnexx.convertUiToSgtk",
+        "title": "Convert .ui to SGTK PyQT"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "nnexx.convertUiToSgtk",
+          "when": "resourceExtname == .ui",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npx vsce package"
+  },
+  "devDependencies": {
+    "vsce": "^2.13.0"
+  }
+}
