@@ -12,6 +12,7 @@ import logging
 import os
 import subprocess
 import sys
+import traceback
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG,
@@ -71,13 +72,14 @@ def main():
 
         # Command to convert .ui file to .py file using pyuic6
         # Ensure that 'pyuic6.exe' is in your PATH or provide the full path to it
-        cmd = f"pyuic6.exe -x {ui_path} -o {ui_py_path}"
+        uic_path = r"C:\Users\fidel.moreno\AppData\Roaming\Python\Python39\Scripts\pyuic5.exe"
+        cmd = f"{uic_path} {ui_path} -o {ui_py_path}"
         run_cmd_command(cmd)
 
         # Open the python file
         with open(ui_py_path, "r") as file:
             content = file.read()
-            print(content)
+            # print(content)
         # Remove content first line
         content = "\n".join(content.split("\n")[1:])
 
@@ -94,7 +96,8 @@ def main():
             "            globals()[name] = cls"
         )
         content = content.replace(
-            "from PyQt6 import QtCore, QtGui, QtWidgets", new_imports)
+            "from PyQt5 import QtCore, QtGui, QtWidgets", new_imports)
+            
         # Update the content
         with open(ui_py_path, "w") as file:
             now = datetime.datetime.now()
@@ -109,4 +112,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        # Add current error traceback to the log file
+        logger.error(str(e))
+        logger.error(traceback.format_exc())
